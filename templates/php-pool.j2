@@ -92,7 +92,7 @@ listen.group = www-data
 ;             pm.process_idle_timeout   - The number of seconds after which
 ;                                         an idle process will be killed.
 ; Note: This value is mandatory.
-{% if env == 'Test' %}
+{% if env == 'Live' %}
 pm = dynamic
 {% else %}
 pm = ondemand
