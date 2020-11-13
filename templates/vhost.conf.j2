@@ -2,7 +2,9 @@
   DocumentRoot {{ webroot }}
   ServerName {{ bare_url }}
 
-  ProxyPassMatch ^/(.*\.php(/.*)?)$ "unix:/var/run/php/php-fpm-{{ bare_url }}.sock|fcgi://localhost{{ webroot }}"
+  <FilesMatch \.php$>
+    SetHandler "proxy:unix:/var/run/php/php-fpm-{{ bare_url }}.sock|fcgi://./"
+  </FilesMatch>
   RedirectMatch 404 /\.git
 <Directory "{{ webroot }}">
   AllowOverride All
