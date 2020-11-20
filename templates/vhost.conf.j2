@@ -16,6 +16,7 @@
   <RequireAny>
     Require valid-user
     Require ip 127.0.0.1
+    Require ip {{ primary_icinga_server_ip }}
   </RequireAny>
 {% else %}
   Require all granted
