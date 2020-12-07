@@ -9,9 +9,14 @@
 <Directory "{{ webroot }}">
   AllowOverride All
   Options -Indexes
+{% if cms != 'Other' %}
+  <LimitExcept GET POST HEAD>
+    deny from all
+  </LimitExcept>
+{% endif %}
 {% if env == 'Test' %}
   AuthType Basic
-  AuthName "This is a Megaphone Tech test site.  Please enter the Megaphone Tech user/password to continue."
+  AuthName "This is a Megaphone Tech test site. Please enter the test site credentials to continue."
   AuthUserFile {{ webroot }}/htpasswd
   <RequireAny>
     Require valid-user
