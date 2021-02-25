@@ -10,7 +10,7 @@
   AllowOverride All
   Options -Indexes
 {% if cms != 'Other' %}
-  <LimitExcept GET POST HEAD>
+  <LimitExcept GET POST HEAD OPTIONS>
     deny from all
   </LimitExcept>
 {% endif %}
