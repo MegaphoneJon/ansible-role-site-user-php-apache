@@ -29,6 +29,22 @@
     - "{{ userlist }}"
     - "{{ grouplist }}"
 
+- name: Place a global .gitignore file
+  ansible.builtin.copy:
+    src: files/.gitignore_global
+    dest: "/home/{{ run_as_user }}"
+    owner: "{{ run_as_user }}"
+  when: env == 'Dev'
+
+- name: Enable the global .gitignore
+  community.general.git_config:
+    name: core.excludesFile
+    value: "/home/{{ run_as_user }}/.gitignore_global"
+    scope: global
+  when: env == 'Dev'
+  become_user: "{{ run_as_user }}"
+
+
 - name: Create the php-fpm pool directory
   file:
     path: /etc/php/{{ php_version }}/fpm/pool.d/
