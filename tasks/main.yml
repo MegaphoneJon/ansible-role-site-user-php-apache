@@ -44,17 +44,18 @@
   when: env == 'Dev'
   become_user: "{{ run_as_user }}"
 
+- block:
+  - name: Create the php-fpm pool directory
+    file:
+      path: /etc/php/{{ php_version }}/fpm/pool.d/
+      state: directory
 
-- name: Create the php-fpm pool directory
-  file:
-    path: /etc/php/{{ php_version }}/fpm/pool.d/
-    state: directory
-
-- name: Create a php-fpm pool
-  template:
-    src: templates/php-pool.j2
-    dest: /etc/php/{{ php_version }}/fpm/pool.d/{{ run_as_user }}.conf
-  notify: restart php-fpm
+  - name: Create a php-fpm pool
+    template:
+      src: templates/php-pool.j2
+      dest: /etc/php/{{ php_version }}/fpm/pool.d/{{ run_as_user }}.conf
+    notify: restart php-fpm
+  when: cms != 'Static'
 
 - name: Create vhost conf (Apache)
   template:
