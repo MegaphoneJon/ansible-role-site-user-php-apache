@@ -6,6 +6,7 @@
     SetHandler "proxy:unix:/var/run/php/php-fpm-{{ bare_url }}.sock|fcgi://./"
   </FilesMatch>
   RedirectMatch 404 /\.git
+  {{ apache_vhost_extra|default('') }}
 <Directory "{{ webroot }}">
   AllowOverride All
   Options -Indexes
