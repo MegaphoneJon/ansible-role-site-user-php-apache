@@ -1,6 +1,11 @@
 <VirtualHost *:80>
   DocumentRoot {{ webroot }}
   ServerName {{ bare_url }}
+{% if server_aliases is not none -%}
+{% for alias in server_aliases.split(',') %}
+  ServerAlias {{ alias }}
+{% endfor %}
+{% endif %}
 
   <FilesMatch \.php$>
     SetHandler "proxy:unix:/var/run/php/php-fpm-{{ bare_url }}.sock|fcgi://./"
