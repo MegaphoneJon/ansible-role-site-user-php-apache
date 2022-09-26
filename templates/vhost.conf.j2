@@ -11,6 +11,11 @@
     SetHandler "proxy:unix:/var/run/php/php-fpm-{{ bare_url }}.sock|fcgi://./"
   </FilesMatch>
   RedirectMatch 404 /\.git
+{% if env != 'Live' %}
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f [NC]
+  RewriteRule ^(.*\.(png|jpe?g|gif|ico)) {{ canonical_primary_url }}/$1 [NC,P,L]
+{% endif %}
   {{ apache_vhost_extra|default('') }}
 <Directory "{{ webroot }}">
   AllowOverride All
