@@ -2,7 +2,7 @@
 - name: Create the run_as_user
   user:
     name: "{{ run_as_user }}"
-    shell: /bin/nologin
+    shell: /usr/sbin/nologin
     generate_ssh_key: yes
     home: "/home/{{ run_as_user }}"
   tags: site-user
