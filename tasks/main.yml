@@ -13,6 +13,12 @@
   with_dict: "{{ users }}"
   tags: site-user
 
+- name: Add additional staff to the above userlist
+  set_fact:
+    userlist: "{{ userlist|default([]) + [ item.value.name ] }}"
+  with_dict: "{{ additional_users | default({}) }}"
+  tags: site-user
+
 - name: Add Ansible to the above userlist
   set_fact:
     userlist: "{{ userlist|default([]) + [ ansible_user ] }}"
