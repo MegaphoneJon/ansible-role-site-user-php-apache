@@ -73,6 +73,7 @@
     src: templates/vhost.conf.j2
     dest: /etc/apache2/sites-available/{{ bare_url }}.conf
   notify: restart apache
+  tags: site-apache
 
 - name: Enable the site (Apache)
   file:
@@ -80,3 +81,4 @@
     dest: /etc/apache2/sites-enabled/{{ bare_url }}.conf
     state: link
   notify: restart apache
+  tags: site-apache
