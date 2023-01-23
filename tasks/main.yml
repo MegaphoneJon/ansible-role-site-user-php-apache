@@ -67,6 +67,7 @@
       dest: /etc/php/{{ php_version }}/fpm/pool.d/{{ run_as_user }}.conf
     notify: restart php-fpm
   when: cms != 'Static'
+  tags: site-php
 
 - name: Create vhost conf (Apache)
   template:
