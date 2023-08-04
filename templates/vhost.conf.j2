@@ -39,6 +39,8 @@
 {% else %}
   Require all granted
 {% endif %}
+{% include "files/" + bare_url + "/vhost-include.j2" ignore missing %}
+
 </Directory>
 SSLProxyEngine on
 </VirtualHost>
