@@ -42,6 +42,10 @@
 {% include "files/" + bare_url + "/vhost-include.j2" ignore missing %}
 
 </Directory>
+<FilesMatch "^(xmlrpc\.php|wp-trackback\.php)">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
 SSLProxyEngine on
 </VirtualHost>
 
