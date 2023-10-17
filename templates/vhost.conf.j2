@@ -31,6 +31,10 @@
   AuthType Basic
   AuthName "This is a Megaphone Tech test site. Please enter the test site credentials to continue."
   AuthUserFile {{ webroot }}/htpasswd
+{% endif %}
+
+<RequireAll>
+{% if env == 'Test' %}
   <RequireAny>
     Require valid-user
     Require ip 127.0.0.1
@@ -39,6 +43,11 @@
 {% else %}
   Require all granted
 {% endif %}
+  <RequireNone>
+    Require env BlockedAgent
+  </RequireNone>
+</RequireAll>
+
 {% include "files/" + bare_url + "/vhost-include.j2" ignore missing %}
 
 </Directory>
