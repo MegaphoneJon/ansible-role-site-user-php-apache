@@ -7,7 +7,7 @@
 {% endfor %}
 {% endif %}
   ErrorLog /var/log/apache2/{{ bare_url }}.error.log
-  CustomLog /var/log/apache2/{{ bare_url }}.log combined
+  CustomLog /var/log/apache2/{{ bare_url }}.access.log combined
 
   <FilesMatch \.php$>
     SetHandler "proxy:unix:/var/run/php/php-fpm-{{ bare_url }}.sock|fcgi://./"
