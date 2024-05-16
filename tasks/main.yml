@@ -4,6 +4,8 @@
     name: "{{ run_as_user }}"
     shell: /usr/sbin/nologin
     generate_ssh_key: yes
+    ssh_key_file: .ssh/id_ed25519
+    ssh_key_type: ed25519
     home: "/home/{{ run_as_user }}"
   tags: site-user
 
