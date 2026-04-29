@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:{{ http_port }}>
   DocumentRoot {{ webroot }}
   ServerName {{ bare_url }}
 {% if server_aliases is not none -%}
