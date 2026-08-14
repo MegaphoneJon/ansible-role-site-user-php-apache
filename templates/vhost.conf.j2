@@ -27,7 +27,7 @@
     deny from all
   </LimitExcept>
 {% endif %}
-{% if env == 'Test' %}
+{% if env == 'Test' or basic_auth_name is defined %}
   AuthType Basic
   AuthName "This is a Megaphone Tech test site. Please enter the test site credentials to continue."
   AuthUserFile {{ webroot }}/htpasswd
