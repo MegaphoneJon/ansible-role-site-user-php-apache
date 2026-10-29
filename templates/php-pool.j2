@@ -108,7 +108,16 @@ pm = ondemand
 ; forget to tweak pm.* to fit your needs.
 ; Note: Used when pm is set to 'static', 'dynamic' or 'ondemand'
 ; Note: This value is mandatory.
-pm.max_children = 50
+{# Lower of 10 per vCPU, or (total RAM - 2GB) / (80% of memory_limit). Floor of
+   max_spare_servers, since FPM refuses to start if max_children is lower. #}
+{% set cpu_children = ansible_processor_vcpus * 10 %}
+{% if php_ram %}
+{% set ram_children = ((ansible_memtotal_mb - 2048) / (php_ram | int * 0.8)) | int %}
+{% set max_children = [cpu_children, ram_children] | min %}
+{% else %}
+{% set max_children = cpu_children %}
+{% endif %}
+pm.max_children = {{ [max_children, 4] | max }}
 
 ; The number of child processes created on startup.
 ; Note: Used only when pm is set to 'dynamic'
